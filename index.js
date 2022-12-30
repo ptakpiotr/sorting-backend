@@ -9,14 +9,15 @@ const socket = require("socket.io");
 
 const algorithms = require("./routes/algorithms");
 const user = require("./routes/user");
+const numbers = require("./routes/numbers");
+
 const authMiddleware = require("./middlewares/authorization");
 const authSocketIO = require("./middlewares/authorizationSocketIO");
-const verifyJWT = require("./utils/verifyJWT");
+
 
 const opinion = require("./models/Opinion");
 
 const app = express();
-
 
 app.use(morgan("tiny"));
 app.use(cors({
@@ -30,6 +31,7 @@ app.use(express.json());
 
 app.use("/api/algorithms", algorithms);
 app.use("/api/user", user);
+app.use("/api/numbers", numbers);
 
 
 async function start() {

@@ -85,9 +85,9 @@ async function deleteUser(req, res) {
 };
 
 async function verifyJWTToken(req, res) {
-    const { token } = req.body;
+    const { token, verifyAdmin } = req.body;
     try {
-        verifyJWT(`Bearer ${token}`)
+        verifyJWT(`Bearer ${token}`, verifyAdmin);
         res.status(StatusCodes.OK).send();
 
     } catch (err) {

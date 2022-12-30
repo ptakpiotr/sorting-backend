@@ -22,6 +22,11 @@ const UserSchema = new mongoose.Schema({
     invalidLogins: {
         type: Number,
         default: 0
+    },
+    group: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user"
     }
 })
 
@@ -32,7 +37,8 @@ UserSchema.pre("save", async function () {
 
 UserSchema.methods.generateJWT = function () {
     const token = jwt.sign({
-        email: this.email
+        email: this.email,
+        group: this.group
     }, process.env.JWT_SECRET, {
         expiresIn: "30m",
         audience: process.env.JWT_AUDIENCE,
