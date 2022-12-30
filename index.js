@@ -9,6 +9,11 @@ const socket = require("socket.io");
 
 const algorithms = require("./routes/algorithms");
 const user = require("./routes/user");
+const authMiddleware = require("./middlewares/authorization");
+const authSocketIO = require("./middlewares/authorizationSocketIO");
+const verifyJWT = require("./utils/verifyJWT");
+
+const opinion = require("./models/Opinion");
 
 const app = express();
 
@@ -28,6 +33,8 @@ app.use("/api/user", user);
 
 
 async function start() {
+    await mongoose.connect(process.env.MONGO_KEY);
+
     const server = app.listen(process.env.PORT, () => {
         console.log(`Server is listening on port ${process.env.PORT}`);
     });
@@ -38,13 +45,13 @@ async function start() {
             methods: ["GET", "POST"]
         }
     });
+    io.use(authSocketIO);
     io.on("connection", (socket) => {
         socket.on("newOpinion", (data) => {
-            console.log(data);
+            opinion.create({ ...data });
         })
     });
 
-    await mongoose.connect(process.env.MONGO_KEY);
 }
 
 start().then(() => { console.log("Connected to DB"); }).catch((err) => { console.error(err) });

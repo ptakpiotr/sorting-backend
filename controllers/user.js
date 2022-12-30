@@ -2,6 +2,7 @@ const userSchemaValid = require("../validation/userSchemaValid");
 const userLoginSchemaValid = require("../validation/userLoginSchemaValid");
 const { StatusCodes } = require("http-status-codes");
 const User = require("../models/User");
+const verifyJWT = require("../utils/verifyJWT");
 
 async function registerUser(req, res) {
     const { email, password } = req.body;
@@ -83,8 +84,20 @@ async function deleteUser(req, res) {
     }
 };
 
+async function verifyJWTToken(req, res) {
+    const { token } = req.body;
+    try {
+        verifyJWT(`Bearer ${token}`)
+        res.status(StatusCodes.OK).send();
+
+    } catch (err) {
+        res.status(StatusCodes.UNAUTHORIZED).send();
+    }
+}
+
 module.exports = {
     loginUser,
     registerUser,
-    deleteUser
+    deleteUser,
+    verifyJWTToken
 }
