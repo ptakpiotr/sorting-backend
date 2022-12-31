@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use("/api/algorithms", algorithms);
 app.use("/api/user", user);
-app.use("/api/numbers", numbers);
+app.use("/api/numbers", authMiddleware, numbers);
 
 
 async function start() {

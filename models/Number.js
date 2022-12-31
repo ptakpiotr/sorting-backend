@@ -5,7 +5,12 @@ const NumberSchema = mongoose.Schema({
         type: [Number],
         required: [true, 'Numbers are required']
     },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    algorithm: {
+        type: String,
+        require: [true, 'Algorithm is required']
+    },
+    date: Date
 });
 
 module.exports = mongoose.model("Number", NumberSchema);

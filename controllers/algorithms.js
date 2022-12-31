@@ -5,6 +5,7 @@ const Algorithm = require("../models/Algorithm");
 
 async function getSingleAlgorithm(req, res) {
     const validationRes = await algorithmValidation.isValid(req.query);
+
     if (validationRes) {
         const { lang, algorithm } = req.query;
         let desc;
