@@ -41,6 +41,7 @@ async function addNumbers(req, res) {
 
         res.status(StatusCodes.CREATED).send();
     } catch (err) {
+        console.error(err);
         res.status(StatusCodes.BAD_REQUEST).send();
     }
 };
