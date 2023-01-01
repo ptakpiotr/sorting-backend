@@ -1,4 +1,3 @@
-const { StatusCodes } = require("http-status-codes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const { version } = require("../package.json");
@@ -30,7 +29,7 @@ const options = {
 const spec = swaggerJsDoc(options);
 
 function swaggerDocs(app) {
-    app.use('/docs', swaggerUI.serve, swaggerUI.setup(spec));
+    app.use('/', swaggerUI.serve, swaggerUI.setup(spec));
 }
 
 module.exports = swaggerDocs;
