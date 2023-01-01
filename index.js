@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const xss = require("xss-clean");
 const socket = require("socket.io");
-
+const swaggerDocs = require("./utils/swagger");
 const algorithms = require("./routes/algorithms");
 const user = require("./routes/user");
 const numbers = require("./routes/numbers");
@@ -53,7 +53,7 @@ async function start() {
             opinion.create({ ...data });
         })
     });
-
+    swaggerDocs(app);
 }
 
 start().then(() => { console.log("Connected to DB"); }).catch((err) => { console.error(err) });
