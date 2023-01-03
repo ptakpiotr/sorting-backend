@@ -50,6 +50,7 @@ async function loginUser(req, res) {
             }
             else if (user.invalidLogins >= 5) {
                 res.status(StatusCodes.TOO_MANY_REQUESTS).send();
+                return;
             }
 
             const passwordMatches = await user.passwordMatches(password);
@@ -61,6 +62,7 @@ async function loginUser(req, res) {
                     token,
                     profile
                 });
+                return;
             } else {
                 await User.updateOne({ _id: user._id }, { invalidLogins: user.invalidLogins + 1 })
                 throw new Error();
