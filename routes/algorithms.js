@@ -40,17 +40,6 @@ router.route("/single").get(getSingleAlgorithm);
  *         description: Success
  *       500:   
  *         description: Internal Server Error
- *     parameters:
- *       - in: query
- *         name: lang
- *         type: string
- *         required: true
- *         description: Language in which the information from wikipedia should be provided
- *       - in: query
- *         name: algorithm
- *         type: string
- *         required: true
- *         description: The algorithm name
  */
 router.route("/").get(getAllAlgorithms);
 

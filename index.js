@@ -51,7 +51,12 @@ async function start() {
     io.on("connection", (socket) => {
         socket.on("newOpinion", (data) => {
             opinion.create({ ...data });
-        })
+        });
+
+        socket.on("getOpinions", async () => {
+            const opinions = await opinion.find({});
+            io.to(socket.id).emit("allOpinions", opinions);
+        });
     });
     swaggerDocs(app);
 }
